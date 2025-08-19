@@ -5,14 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>心流協議</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap');
         
         :root {
-            --bg-color: #1F1F1F;
-            --text-color: #EAEAEA;
-            --primary-color: #A855F7; /* Purple */
-            --secondary-color: #333333;
-            --card-bg: #2A2A2A;
+            --bg-color: #F7F7F7;
+            --card-bg-color: #FFFFFF;
+            --text-color: #37352F;
+            --text-light-color: #9B9A97;
+            --primary-color: #2962FF; /* A Notion-like Blue */
+            --border-color: #EAE9E7;
         }
 
         body {
@@ -23,7 +24,7 @@
             padding: 24px;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             min-height: 100vh;
             box-sizing: border-box;
         }
@@ -34,33 +35,39 @@
         }
 
         header {
-            text-align: center;
+            text-align: left;
             margin-bottom: 32px;
+            padding-left: 8px;
         }
 
         h1 {
             font-size: 2.5rem;
-            color: var(--primary-color);
+            font-weight: 700;
+            color: var(--text-color);
             margin: 0;
         }
 
         header p {
             font-size: 1rem;
-            color: #A0A0A0;
+            color: var(--text-light-color);
         }
 
         .section {
-            background-color: var(--secondary-color);
-            border-radius: 12px;
+            background-color: var(--card-bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
             padding: 20px;
             margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
         }
 
         h2 {
-            font-size: 1.5rem;
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 8px;
+            font-size: 1.25rem;
+            font-weight: 500;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
             margin-top: 0;
+            margin-bottom: 16px;
         }
 
         ul {
@@ -69,24 +76,30 @@
         }
 
         li {
-            background-color: var(--card-bg);
-            padding: 16px;
-            border-radius: 8px;
-            margin-bottom: 12px;
+            padding: 12px 8px;
+            border-radius: 6px;
+            margin-bottom: 8px;
             font-size: 1rem;
             line-height: 1.6;
             display: flex;
             align-items: flex-start;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
         }
-
-        li .emoji {
-            font-size: 1.5rem;
-            margin-right: 16px;
-            margin-top: -2px;
+        
+        li:hover {
+            background-color: #F7F7F7;
+        }
+        
+        li .icon {
+            margin-right: 12px;
+            flex-shrink: 0;
+            margin-top: 3px;
         }
 
         strong {
-            color: var(--primary-color);
+            color: var(--text-color);
+            font-weight: 500;
         }
 
         .timer-section {
@@ -97,136 +110,24 @@
             font-size: 4rem;
             font-weight: 700;
             margin: 16px 0;
+            color: var(--text-color);
         }
 
         .timer-buttons button {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
+            background-color: #F1F1F1;
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            padding: 10px 20px;
+            border-radius: 6px;
             font-size: 1rem;
+            font-family: 'Noto Sans TC', sans-serif;
             cursor: pointer;
             margin: 0 8px;
             transition: background-color 0.2s;
         }
         
         .timer-buttons button:hover {
-            background-color: #9333EA;
-        }
-
-        .protocol-item {
-            cursor: pointer;
+            background-color: #EAEAEA;
         }
         
-        .protocol-item small {
-            color: #888;
-            font-size: 0.85em;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <header>
-            <h1>心流協議</h1>
-            <p>你的單點登录，進入深度專注</p>
-        </header>
-
-        <div class="section timer-section">
-            <div id="timer-display">25:00</div>
-            <div class="timer-buttons">
-                <button id="sprint-btn">🚀 衝刺 (25分)</button>
-                <button id="break-btn">🧘 休整 (5分)</button>
-                <button id="stop-btn">⏹️ 停止</button>
-            </div>
-        </div>
-
-        <div class="section">
-            <h2>行動清單 | The Protocol</h2>
-            <ul>
-                <li class="protocol-item" onclick="alert('【操作】:\n- 檢視你的任務主頁，明確今日整體戰場。\n\n【關鍵動作】:\n- 只選一個最重要的任務，在心中指定它為「首要目標」。')">
-                    <span class="emoji">🎯</span>
-                    <div><strong>每日校準：鎖定第一任務</strong><br><small>點擊查看指令</small></div>
-                </li>
-                <li class="protocol-item" onclick="alert('【操作】:\n- 開啟一個衝刺任務前，進行清場。\n\n【關鍵動作】:\n- 關閉所有無關窗口，手機靜音反扣。\n- 全屏當前任務，讓它佔據你的整個世界。')">
-                    <span class="emoji">⚡️</span>
-                    <div><strong>準備：創造結界</strong><br><small>點擊查看指令</small></div>
-                </li>
-                <li class="protocol-item" onclick="alert('【操作】:\n- 啟動25分鐘計時器。\n\n【關鍵動作】:\n- 立即開始工作，忘記結果，沉浸過程。\n- 唯一信條：計時器響起前，不切換任務，不理會干擾。')">
-                    <span class="emoji">🚀</span>
-                    <div><strong>衝刺：啟動引擎 (25分鐘)</strong><br><small>點擊查看指令</small></div>
-                </li>
-                <li class="protocol-item" onclick="alert('【操作】:\n- 計時器響起，立即停止。\n\n【關鍵動作】:\n- 起身，離開屏幕。\n- 去喝水、遠眺、拉伸，嚴禁接觸任何新信息。')">
-                    <span class="emoji">🧘</span>
-                    <div><strong>休整：完全離線 (5分鐘)</strong><br><small>點擊查看指令</small></div>
-                </li>
-                <li class="protocol-item" onclick="alert('【操作】:\n- 休息結束後，花1-2分鐘評估。\n\n【關鍵動作】:\n- 用一句話記錄剛才的進展。\n- 快速決策：「繼續」還是「切換新目標」？然後立即回到「準備」步驟。')">
-                    <span class="emoji">🔄</span>
-                    <div><strong>重置：快速決策</strong><br><small>點擊查看指令</small></div>
-                </li>
-            </ul>
-        </div>
-        
-        <div class="section">
-            <h2>緊急預案 | Emergency Protocols</h2>
-            <ul>
-                <li class="protocol-item" onclick="alert('指令：啟動「五分鐘約定」。對自己說：「我只做五分鐘，之後就可以放棄。」 —— 通常，你不會想停下來。')"><span class="emoji">💡</span><div><strong>感覺就是不想開始？</strong><br><small>點擊查看指令</small></div></li>
-                <li class="protocol-item" onclick="alert('指令：執行「捕獲-回歸」。把干擾快速記在紙上，然後對它（或對自己）說：「收到，稍後處理。」，立刻轉頭回到你的計時器任務中。')"><span class="emoji">⚠️</span><div><strong>被外界/內心想法打斷了？</strong><br><small>點擊查看指令</small></div></li>
-                <li class="protocol-item" onclick="alert('指令：不要思考，相信流程。立即從「準備」步驟開始，為下一個任務「創造結界」，讓行動引導你。')"><span class="emoji">😵‍💫</span><div><strong>完成任務後，感覺迷茫空虛？</strong><br><small>點擊查看指令</small></div></li>
-            </ul>
-        </div>
-    </div>
-
-    <script>
-        const timerDisplay = document.getElementById('timer-display');
-        const sprintBtn = document.getElementById('sprint-btn');
-        const breakBtn = document.getElementById('break-btn');
-        const stopBtn = document.getElementById('stop-btn');
-        const originalTitle = document.title;
-
-        let timerInterval = null;
-        let totalSeconds = 25 * 60;
-        
-        const alarmSound = new Audio('https://www.soundjay.com/buttons/sounds/button-16.mp3');
-
-        function updateDisplay() {
-            const minutes = Math.floor(totalSeconds / 60);
-            const seconds = totalSeconds % 60;
-            const displayString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            timerDisplay.textContent = displayString;
-            document.title = `${displayString} - ${originalTitle}`;
-        }
-
-        function startTimer(durationMinutes) {
-            clearInterval(timerInterval);
-            totalSeconds = durationMinutes * 60;
-            updateDisplay();
-            
-            timerInterval = setInterval(() => {
-                totalSeconds--;
-                updateDisplay();
-
-                if (totalSeconds <= 0) {
-                    clearInterval(timerInterval);
-                    alarmSound.play();
-                    alert("時間到！");
-                    document.title = originalTitle;
-                }
-            }, 1000);
-        }
-
-        function stopTimer() {
-            clearInterval(timerInterval);
-            totalSeconds = 25 * 60;
-            updateDisplay();
-            document.title = originalTitle;
-        }
-
-        sprintBtn.addEventListener('click', () => startTimer(25));
-        breakBtn.addEventListener('click', () => startTimer(5));
-        stopBtn.addEventListener('click', stopTimer);
-        
-        updateDisplay(); // Initial display
-    </script>
-</body>
-</html>
+        .timer-buttons button.active
