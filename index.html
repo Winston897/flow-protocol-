@@ -35,17 +35,13 @@
             margin: 0 auto;
         }
 
-        /* The <header> has been removed */
-
         .sticky-panel {
-            position: -webkit-sticky; /* For Safari */
+            position: -webkit-sticky;
             position: sticky;
             top: 0;
             background-color: var(--bg-color);
-            padding: 16px 0;
+            padding: 16px 0 0 0;
             z-index: 10;
-            border-bottom: 1px solid var(--border-color);
-            margin-bottom: 20px;
         }
         
         .timer-section {
@@ -67,7 +63,6 @@
         .timer-flashing {
             animation: flash 1.5s infinite;
         }
-
 
         .timer-buttons button {
             display: inline-flex;
@@ -111,6 +106,25 @@
              margin-right: 8px;
         }
         
+        /* Optimized Stats Section Style */
+        .stats-section {
+            text-align: center;
+            padding: 16px 0;
+            margin: 16px 0;
+            font-size: 0.85em; /* Smaller font size */
+            color: var(--text-light-color); /* Lighter color */
+            border-top: 1px solid var(--border-color);
+        }
+        .stats-section span {
+            font-weight: 700;
+            color: var(--text-color);
+            margin: 0 4px;
+        }
+        .stats-section .divider {
+            margin: 0 12px;
+            color: var(--border-color);
+        }
+
         .section {
             background-color: var(--card-bg-color);
             border-radius: 8px;
@@ -126,12 +140,7 @@
             border-bottom: 1px solid var(--border-color);
         }
 
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
+        ul { list-style: none; padding: 0; margin: 0; }
         li {
             padding: 10px 8px;
             border-radius: 6px;
@@ -143,17 +152,8 @@
             cursor: pointer;
             transition: background-color 0.2s ease;
         }
-        
-        li:hover {
-            background-color: var(--hover-color);
-        }
-        
-        li .icon {
-            margin-right: 12px;
-            flex-shrink: 0;
-            margin-top: 3px;
-        }
-
+        li:hover { background-color: var(--hover-color); }
+        li .icon { margin-right: 12px; flex-shrink: 0; margin-top: 3px; }
         .details {
             display: none;
             margin-top: 8px;
@@ -163,11 +163,7 @@
             white-space: pre-wrap;
             line-height: 1.7;
         }
-        
-        .protocol-item small {
-            color: var(--text-light-color);
-            font-size: 0.85em;
-        }
+        .protocol-item small { color: var(--text-light-color); font-size: 0.85em; }
     </style>
 </head>
 <body>
@@ -186,10 +182,15 @@
                     </button>
                 </div>
             </div>
+            <div class="stats-section">
+                今日專注：<span id="sprint-count">0</span> (<span id="sprint-minutes">0</span> 分鐘)
+                <span class="divider">|</span>
+                今日休整：<span id="break-count">0</span> (<span id="break-minutes">0</span> 分鐘)
+            </div>
         </div>
 
         <div class="section">
-            <h2>The Protocol</h2>
+            <h2>行動清單 | The Protocol</h2>
             <ul>
                 <li class="protocol-item">
                     <div class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v18H3zM9 9l6 6m0-6l-6 6"/></svg></div>
@@ -249,7 +250,7 @@
         </div>
         
         <div class="section">
-            <h2>Emergency Protocols</h2>
+            <h2>緊急預案 | Emergency Protocols</h2>
             <ul>
                  <li class="protocol-item">
                     <div class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10c-4.4-4.4-11.6-4.4-16 0c-2.2 2.2-2.9 5.5-1.9 8.1l5.9-5.9l1.4 1.4l-5.9 5.9c2.6 1 5.9 0.3 8.1-1.9c4.4-4.4 4.4-11.6 0-16"/></svg></div>
@@ -271,12 +272,51 @@
         const timerDisplay = document.getElementById('timer-display');
         const sprintBtn = document.getElementById('sprint-btn');
         const breakBtn = document.getElementById('break-btn');
-        const originalTitle = document.title;
         
+        const sprintCountEl = document.getElementById('sprint-count');
+        const sprintMinutesEl = document.getElementById('sprint-minutes');
+        const breakCountEl = document.getElementById('break-count');
+        const breakMinutesEl = document.getElementById('break-minutes');
+
+        const originalTitle = document.title;
         let timerInterval = null;
         let titleFlashInterval = null;
-        let endTime = 0; // The target end time
+        let endTime = 0;
+        let currentTimerType = null;
+        let currentTimerDuration = 0;
+
         const alarmSound = new Audio('https://www.soundjay.com/buttons/sounds/button-16.mp3');
+
+        let stats = {};
+
+        function loadStats() {
+            const today = new Date().toLocaleDateString();
+            const storedStats = JSON.parse(localStorage.getItem('flowProtocolStats'));
+
+            if (storedStats && storedStats.date === today) {
+                stats = storedStats;
+            } else {
+                stats = {
+                    date: today,
+                    sprintCount: 0,
+                    sprintMinutes: 0,
+                    breakCount: 0,
+                    breakMinutes: 0
+                };
+            }
+            updateStatsDisplay();
+        }
+
+        function updateStatsDisplay() {
+            sprintCountEl.textContent = stats.sprintCount + ' 次';
+            sprintMinutesEl.textContent = stats.sprintMinutes;
+            breakCountEl.textContent = stats.breakCount + ' 次';
+            breakMinutesEl.textContent = stats.breakMinutes;
+        }
+        
+        function saveStats() {
+            localStorage.setItem('flowProtocolStats', JSON.stringify(stats));
+        }
 
         function stopAllFlashing() {
             clearInterval(titleFlashInterval);
@@ -300,43 +340,60 @@
             const remainingSeconds = Math.round(remainingMilliseconds / 1000);
 
             if (remainingSeconds < 0) {
+                let alertMessage = "時間到！";
+                let titleMessage = "⏰ 時間到！";
+                
+                if (currentTimerType === 'sprint') {
+                    stats.sprintCount++;
+                    stats.sprintMinutes += currentTimerDuration;
+                    alertMessage = "衝刺結束，開始休整吧！";
+                    titleMessage = "🧘 休整時間！";
+                } else if (currentTimerType === 'break') {
+                    stats.breakCount++;
+                    stats.breakMinutes += currentTimerDuration;
+                    alertMessage = "休整結束，準備開始下一次衝刺！";
+                    titleMessage = "🚀 準備衝刺！";
+                }
+                saveStats();
+                updateStatsDisplay();
+
                 clearInterval(timerInterval);
                 timerInterval = null;
-                updateDisplay(0); // Show 00:00
+                updateDisplay(0);
                 alarmSound.play();
                 document.querySelectorAll('.timer-buttons button').forEach(b => b.classList.remove('active'));
                 
                 timerDisplay.classList.add('timer-flashing');
                 let isTitleToggled = false;
                 titleFlashInterval = setInterval(() => {
-                    document.title = isTitleToggled ? "⏰ 時間到！" : "---";
+                    document.title = isTitleToggled ? titleMessage : "---";
                     isTitleToggled = !isTitleToggled;
                 }, 1000);
+                
                 return;
             }
 
             updateDisplay(remainingSeconds);
         }
 
-        function startTimer(durationMinutes, btn) {
+        function startTimer(durationMinutes, btn, type) {
             stopAllFlashing();
             document.querySelectorAll('.timer-buttons button').forEach(b => b.classList.remove('active'));
             if(btn) btn.classList.add('active');
-            
+
             clearInterval(timerInterval);
             
+            currentTimerType = type;
+            currentTimerDuration = durationMinutes;
             endTime = Date.now() + durationMinutes * 60 * 1000;
             
-            timerLoop(); // Initial call to show time immediately
+            timerLoop();
             timerInterval = setInterval(timerLoop, 1000);
         }
 
-        sprintBtn.addEventListener('click', () => startTimer(25, sprintBtn));
-        breakBtn.addEventListener('click', () => startTimer(5, breakBtn));
+        sprintBtn.addEventListener('click', () => startTimer(25, sprintBtn, 'sprint'));
+        breakBtn.addEventListener('click', () => startTimer(5, breakBtn, 'break'));
         
-        // Initialize display with 25 minutes
-        updateDisplay(25 * 60);
-
         const items = document.querySelectorAll('.protocol-item');
         items.forEach(item => {
             item.addEventListener('click', () => {
@@ -350,6 +407,9 @@
                 }
             });
         });
+
+        loadStats();
+        updateDisplay(25 * 60);
     </script>
 </body>
 </html>
