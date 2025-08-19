@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>心流协议</title>
+    <title>心流協議</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap');
         
@@ -13,8 +13,6 @@
             --primary-color: #A855F7; /* Purple */
             --secondary-color: #333333;
             --card-bg: #2A2A2A;
-            --success-color: #10B981; /* Green */
-            --warning-color: #F59E0B; /* Amber */
         }
 
         body {
@@ -120,39 +118,61 @@
         .protocol-item {
             cursor: pointer;
         }
+        
+        .protocol-item small {
+            color: #888;
+            font-size: 0.85em;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>心流协议</h1>
-            <p>你的单点登录，进入深度专注</p>
+            <h1>心流協議</h1>
+            <p>你的單點登录，進入深度專注</p>
         </header>
 
         <div class="section timer-section">
             <div id="timer-display">25:00</div>
             <div class="timer-buttons">
-                <button id="sprint-btn">🚀 冲刺 (25分)</button>
+                <button id="sprint-btn">🚀 衝刺 (25分)</button>
                 <button id="break-btn">🧘 休整 (5分)</button>
                 <button id="stop-btn">⏹️ 停止</button>
             </div>
         </div>
 
         <div class="section">
-            <h2>三大心法 | The Mindset</h2>
+            <h2>行動清單 | The Protocol</h2>
             <ul>
-                <li><span class="emoji">⏳</span><div><strong>时间 > 任务</strong>：我的目标不是“完成任务”，而是“投入一个神圣的、不受打扰的时间块”。</div></li>
-                <li><span class="emoji">🌊</span><div><strong>节律 > 蛮力</strong>：我以冲刺和休息的节律工作，像潮汐一样，积蓄能量，持续向前。</div></li>
-                <li><span class="emoji">🛡️</span><div><strong>专注 > 一切</strong>：我的专注力是一个需要被捍卫的“结界”，我是它唯一的守护者。</div></li>
+                <li class="protocol-item" onclick="alert('【操作】:\n- 檢視你的任務主頁，明確今日整體戰場。\n\n【關鍵動作】:\n- 只選一個最重要的任務，在心中指定它為「首要目標」。')">
+                    <span class="emoji">🎯</span>
+                    <div><strong>每日校準：鎖定第一任務</strong><br><small>點擊查看指令</small></div>
+                </li>
+                <li class="protocol-item" onclick="alert('【操作】:\n- 開啟一個衝刺任務前，進行清場。\n\n【關鍵動作】:\n- 關閉所有無關窗口，手機靜音反扣。\n- 全屏當前任務，讓它佔據你的整個世界。')">
+                    <span class="emoji">⚡️</span>
+                    <div><strong>準備：創造結界</strong><br><small>點擊查看指令</small></div>
+                </li>
+                <li class="protocol-item" onclick="alert('【操作】:\n- 啟動25分鐘計時器。\n\n【關鍵動作】:\n- 立即開始工作，忘記結果，沉浸過程。\n- 唯一信條：計時器響起前，不切換任務，不理會干擾。')">
+                    <span class="emoji">🚀</span>
+                    <div><strong>衝刺：啟動引擎 (25分鐘)</strong><br><small>點擊查看指令</small></div>
+                </li>
+                <li class="protocol-item" onclick="alert('【操作】:\n- 計時器響起，立即停止。\n\n【關鍵動作】:\n- 起身，離開屏幕。\n- 去喝水、遠眺、拉伸，嚴禁接觸任何新信息。')">
+                    <span class="emoji">🧘</span>
+                    <div><strong>休整：完全離線 (5分鐘)</strong><br><small>點擊查看指令</small></div>
+                </li>
+                <li class="protocol-item" onclick="alert('【操作】:\n- 休息結束後，花1-2分鐘評估。\n\n【關鍵動作】:\n- 用一句話記錄剛才的進展。\n- 快速決策：「繼續」還是「切換新目標」？然後立即回到「準備」步驟。')">
+                    <span class="emoji">🔄</span>
+                    <div><strong>重置：快速決策</strong><br><small>點擊查看指令</small></div>
+                </li>
             </ul>
         </div>
         
         <div class="section">
-            <h2>紧急预案 | Emergency Protocols</h2>
+            <h2>緊急預案 | Emergency Protocols</h2>
             <ul>
-                <li class="protocol-item" onclick="alert('指令：启动“五分钟约定”。对自己说：“我只做五分钟，之后就可以放弃。” —— 通常，你不会想停下来。')"><span class="emoji">💡</span><div><strong>感觉就是不想开始？</strong><br><small>点击查看指令</small></div></li>
-                <li class="protocol-item" onclick="alert('指令：执行“捕获-回归”。把干扰快速记在纸上，然后对它（或对自己）说：“收到，稍后处理。”，立刻转头回到你的计时器任务中。')"><span class="emoji">⚠️</span><div><strong>被外界/内心想法打断了？</strong><br><small>点击查看指令</small></div></li>
-                <li class="protocol-item" onclick="alert('指令：不要思考，相信流程。立即为下一个任务“创造结界”（清空干扰，全屏任务），让行动引导你。')"><span class="emoji">😵‍💫</span><div><strong>完成任务后，感觉迷茫空虚？</strong><br><small>点击查看指令</small></div></li>
+                <li class="protocol-item" onclick="alert('指令：啟動「五分鐘約定」。對自己說：「我只做五分鐘，之後就可以放棄。」 —— 通常，你不會想停下來。')"><span class="emoji">💡</span><div><strong>感覺就是不想開始？</strong><br><small>點擊查看指令</small></div></li>
+                <li class="protocol-item" onclick="alert('指令：執行「捕獲-回歸」。把干擾快速記在紙上，然後對它（或對自己）說：「收到，稍後處理。」，立刻轉頭回到你的計時器任務中。')"><span class="emoji">⚠️</span><div><strong>被外界/內心想法打斷了？</strong><br><small>點擊查看指令</small></div></li>
+                <li class="protocol-item" onclick="alert('指令：不要思考，相信流程。立即從「準備」步驟開始，為下一個任務「創造結界」，讓行動引導你。')"><span class="emoji">😵‍💫</span><div><strong>完成任務後，感覺迷茫空虛？</strong><br><small>點擊查看指令</small></div></li>
             </ul>
         </div>
     </div>
@@ -189,7 +209,7 @@
                 if (totalSeconds <= 0) {
                     clearInterval(timerInterval);
                     alarmSound.play();
-                    alert("时间到！");
+                    alert("時間到！");
                     document.title = originalTitle;
                 }
             }, 1000);
