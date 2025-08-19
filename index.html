@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>心流协议</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap');
+        
+        :root {
+            --bg-color: #1F1F1F;
+            --text-color: #EAEAEA;
+            --primary-color: #A855F7; /* Purple */
+            --secondary-color: #333333;
+            --card-bg: #2A2A2A;
+            --success-color: #10B981; /* Green */
+            --warning-color: #F59E0B; /* Amber */
+        }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin: 0;
+        }
+
+        header p {
+            font-size: 1rem;
+            color: #A0A0A0;
+        }
+
+        .section {
+            background-color: var(--secondary-color);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 8px;
+            margin-top: 0;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: var(--card-bg);
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            font-size: 1rem;
+            line-height: 1.6;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        li .emoji {
+            font-size: 1.5rem;
+            margin-right: 16px;
+            margin-top: -2px;
+        }
+
+        strong {
+            color: var(--primary-color);
+        }
+
+        .timer-section {
+            text-align: center;
+        }
+
+        #timer-display {
+            font-size: 4rem;
+            font-weight: 700;
+            margin: 16px 0;
+        }
+
+        .timer-buttons button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin: 0 8px;
+            transition: background-color 0.2s;
+        }
+        
+        .timer-buttons button:hover {
+            background-color: #9333EA;
+        }
+
+        .protocol-item {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>心流协议</h1>
+            <p>你的单点登录，进入深度专注</p>
+        </header>
+
+        <div class="section timer-section">
+            <div id="timer-display">25:00</div>
+            <div class="timer-buttons">
+                <button id="sprint-btn">🚀 冲刺 (25分)</button>
+                <button id="break-btn">🧘 休整 (5分)</button>
+                <button id="stop-btn">⏹️ 停止</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>三大心法 | The Mindset</h2>
+            <ul>
+                <li><span class="emoji">⏳</span><div><strong>时间 > 任务</strong>：我的目标不是“完成任务”，而是“投入一个神圣的、不受打扰的时间块”。</div></li>
+                <li><span class="emoji">🌊</span><div><strong>节律 > 蛮力</strong>：我以冲刺和休息的节律工作，像潮汐一样，积蓄能量，持续向前。</div></li>
+                <li><span class="emoji">🛡️</span><div><strong>专注 > 一切</strong>：我的专注力是一个需要被捍卫的“结界”，我是它唯一的守护者。</div></li>
+            </ul>
+        </div>
+        
+        <div class="section">
+            <h2>紧急预案 | Emergency Protocols</h2>
+            <ul>
+                <li class="protocol-item" onclick="alert('指令：启动“五分钟约定”。对自己说：“我只做五分钟，之后就可以放弃。” —— 通常，你不会想停下来。')"><span class="emoji">💡</span><div><strong>感觉就是不想开始？</strong><br><small>点击查看指令</small></div></li>
+                <li class="protocol-item" onclick="alert('指令：执行“捕获-回归”。把干扰快速记在纸上，然后对它（或对自己）说：“收到，稍后处理。”，立刻转头回到你的计时器任务中。')"><span class="emoji">⚠️</span><div><strong>被外界/内心想法打断了？</strong><br><small>点击查看指令</small></div></li>
+                <li class="protocol-item" onclick="alert('指令：不要思考，相信流程。立即为下一个任务“创造结界”（清空干扰，全屏任务），让行动引导你。')"><span class="emoji">😵‍💫</span><div><strong>完成任务后，感觉迷茫空虚？</strong><br><small>点击查看指令</small></div></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const timerDisplay = document.getElementById('timer-display');
+        const sprintBtn = document.getElementById('sprint-btn');
+        const breakBtn = document.getElementById('break-btn');
+        const stopBtn = document.getElementById('stop-btn');
+        const originalTitle = document.title;
+
+        let timerInterval = null;
+        let totalSeconds = 25 * 60;
+        
+        const alarmSound = new Audio('https://www.soundjay.com/buttons/sounds/button-16.mp3');
+
+        function updateDisplay() {
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = totalSeconds % 60;
+            const displayString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            timerDisplay.textContent = displayString;
+            document.title = `${displayString} - ${originalTitle}`;
+        }
+
+        function startTimer(durationMinutes) {
+            clearInterval(timerInterval);
+            totalSeconds = durationMinutes * 60;
+            updateDisplay();
+            
+            timerInterval = setInterval(() => {
+                totalSeconds--;
+                updateDisplay();
+
+                if (totalSeconds <= 0) {
+                    clearInterval(timerInterval);
+                    alarmSound.play();
+                    alert("时间到！");
+                    document.title = originalTitle;
+                }
+            }, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(timerInterval);
+            totalSeconds = 25 * 60;
+            updateDisplay();
+            document.title = originalTitle;
+        }
+
+        sprintBtn.addEventListener('click', () => startTimer(25));
+        breakBtn.addEventListener('click', () => startTimer(5));
+        stopBtn.addEventListener('click', stopTimer);
+        
+        updateDisplay(); // Initial display
+    </script>
+</body>
+</html>
